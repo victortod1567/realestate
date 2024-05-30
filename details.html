@@ -1,0 +1,240 @@
+<!-- details.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подробности за обявата</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+        .image-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .card img {
+            max-height: 500px;
+            object-fit: contain;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/bg.jpg'); /* Пътят към фоновото изображение */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        overflow-y: auto;
+            padding-bottom: 20px; /* Extra padding to ensure the footer doesn't overlap content */
+        }
+
+          .sidebar-image {
+            position: fixed;
+            top: 0;
+            width: 15%;
+            height: 100%;
+            background-size: cover;
+            z-index: -1;
+        }
+        .sidebar-image-left {
+            left: 0;
+            background-image: url('images/sidebar.jpg'); /* Пътят към изображението в лявата колона */
+        }
+        .sidebar-image-right {
+            right: 0;
+            background-image: url('images/sidebar.jpg'); /* Пътят към изображението в дясната колона */
+        }
+
+h1 {
+    color: white; /* Бели букви */
+    font-size: 3em; /* Големина на шрифта */
+    text-shadow: 
+        -1px -1px 0 black,  
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black; /* Създаване на граница с text-shadow */
+}
+
+        footer {
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .image-controls #prev-image,
+.image-controls #next-image {
+    color: white; /* Бели букви */
+    font-size: 1em; /* Големина на шрифта */
+    text-shadow: 
+        -1px -1px 0 black,  
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black; /* Създаване на граница с text-shadow */
+    border: 2px solid black; /* Черна граница */
+    background-color: transparent; /* Прозрачен фон */
+    padding: 5px 10px; /* Размер на отстъпа */
+    transition: background-color 0.3s, color 0.3s; /* Плавно променяне на цветовете */
+}
+
+.image-controls #prev-image:hover,
+.image-controls #next-image:hover {
+    background-color: black; /* Промяна на фона при ховър */
+    color: white; /* Промяна на цвета на буквите при ховър */
+}
+
+    </style>
+</head>
+<body>
+    
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Лого">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="button">Начало</a></li>
+                <li><a href="search.html" class="button">Търсене</a></li>
+                <li><a href="create.html" class="button">Добавяне на обява</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+
+     <main class="container mt-4">
+        <h1 class="mb-4">Подробности за обявата </h1>
+        <div id="listing-details" class="card mb-4">
+            <!-- Тук ще се показват подробностите за обявата -->
+        </div>
+        <div class="image-controls mb-4">
+            <button id="prev-image" class="btn btn-primary me-2">Предишна</button>
+            <button id="next-image" class="btn btn-primary">Следваща</button>
+        </div>
+    </main>
+
+    <footer class="bg-light py-3 mt-auto">
+        <div class="container">
+            <p class="mb-0 text-center">&copy; 2024 EstateBG. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Извличане на параметъра id от URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const listingId = Number(urlParams.get('id'));
+
+            // Отваряне на базата данни
+            let request = indexedDB.open('listingsDB', 1);
+            let db;
+
+            request.onerror = function(event) {
+                console.log("Грешка при отваряне на базата данни.");
+            };
+
+            request.onsuccess = function(event) {
+                db = request.result;
+                console.log("Базата данни е отворена успешно.");
+
+                // Извличане на обявата по ID
+                displayListingDetails(listingId);
+            };
+
+            function displayListingDetails(id) {
+                let transaction = db.transaction(['listings'], 'readonly');
+                let objectStore = transaction.objectStore('listings');
+                let request = objectStore.get(id);
+
+                request.onsuccess = function(event) {
+                    let listing = request.result;
+                    if (listing) {
+    const listingDetailsContainer = document.getElementById('listing-details');
+    let currentImageIndex = 0;
+
+    function showImage(index) {
+        const imageElement = document.createElement('img');
+        imageElement.src = listing.images[index];
+        imageElement.alt = listing.title;
+        imageElement.classList.add('card-img-top');
+        listingDetailsContainer.innerHTML = '';
+        listingDetailsContainer.appendChild(imageElement);
+
+        // Показване на останалите елементи на обявата
+        const cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
+
+        const titleElement = document.createElement('h5');
+        titleElement.classList.add('card-title');
+        titleElement.textContent = listing.title;
+        cardBody.appendChild(titleElement);
+
+        const priceElement = document.createElement('p');
+        priceElement.classList.add('card-text');
+        priceElement.textContent = `Цена: ${listing.price} лв.`;
+        cardBody.appendChild(priceElement);
+
+        const areaElement = document.createElement('p');
+        areaElement.classList.add('card-text');
+        areaElement.textContent = `Площ: ${listing.area} кв.м.`;
+        cardBody.appendChild(areaElement);
+
+        const cityElement = document.createElement('p');
+        cityElement.classList.add('card-text');
+        cityElement.textContent = `Град: ${listing.city}`;
+        cardBody.appendChild(cityElement);
+
+        const propertyTypeElement = document.createElement('p');
+        propertyTypeElement.classList.add('card-text');
+        propertyTypeElement.textContent = `Тип на имота: ${listing.propertyType}`;
+        cardBody.appendChild(propertyTypeElement);
+
+        const descriptionElement = document.createElement('p');
+        descriptionElement.classList.add('card-text');
+        descriptionElement.textContent = `Описание: ${listing.description}`;
+        cardBody.appendChild(descriptionElement);
+
+        const contactElement = document.createElement('p');
+        contactElement.classList.add('card-text');
+        contactElement.textContent = `Телефон за връзка: ${listing.contact}`;
+        cardBody.appendChild(contactElement);
+
+        listingDetailsContainer.appendChild(cardBody);
+    }
+
+    function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % listing.images.length;
+        showImage(currentImageIndex);
+    }
+
+    function prevImage() {
+        currentImageIndex = (currentImageIndex - 1 + listing.images.length) % listing.images.length;
+        showImage(currentImageIndex);
+    }
+
+    showImage(currentImageIndex);
+
+    // Добавяне на функционалност към бутоните за преминаване към предишната и следващата снимка
+    document.getElementById('prev-image').addEventListener('click', prevImage);
+    document.getElementById('next-image').addEventListener('click', nextImage);
+} else {
+    console.log('Обявата не беше намерена.');
+}
+
+                };
+
+                request.onerror = function(event) {
+                    console.log('Грешка при извличане на обявата от базата данни.');
+                };
+            }
+        });
+    </script>
+</body>
+</html>

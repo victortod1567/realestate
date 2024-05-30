@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавяне на обява</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/bg.jpg'); /* Пътят към фоновото изображение */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+    color: white; /* Бели букви */
+    font-size: 3em; /* Големина на шрифта */
+    text-shadow: 
+        -1px -1px 0 black,  
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black; /* Създаване на граница с text-shadow */
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Лого" class="logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="button">Начало</a></li>
+                <li><a href="search.html" class="button">Търсене</a></li>
+                <li><a href="create.html" class="button">Добавяне на обява</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Добавяне на нова обява</h1>
+        <form id="create-listing-form">
+            <div>
+                <label for="title">Име на обявата:</label><br>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div>
+                <label>Вид на имота:</label><br>
+                <input type="radio" id="1-bedroom" name="property-type" value="1-стаен апартамент">
+                <label for="1-bedroom">1-стаен апартамент</label><br>
+                <input type="radio" id="2-bedroom" name="property-type" value="2-стаен апартамент">
+                <label for="2-bedroom">2-стаен апартамент</label><br>
+                <input type="radio" id="3-bedroom" name="property-type" value="3-стаен апартамент">
+                <label for="3-bedroom">3-стаен апартамент</label><br>
+                <input type="radio" id="house" name="property-type" value="къща">
+                <label for="house">Къща</label><br>
+                <input type="radio" id="office" name="property-type" value="офис">
+                <label for="office">Офис</label>
+            </div>
+            <div>
+                <label for="price">Цена на имота:</label><br>
+                <input type="number" id="price" name="price" required>
+                <span>лв</span>
+            </div>
+            <div>
+                <label for="area">Квадратура:</label><br>
+                <input type="number" id="area" name="area" required>
+                <span>кв.м</span>
+            </div>
+            <div>
+                <label for="city">Град:</label><br>
+                <select id="city" name="city">
+                    <option value="София">София</option>
+                    <option value="Пловдив">Пловдив</option>
+                    <option value="Варна">Варна</option>
+                    <!-- Добавете останалите градове тук -->
+                </select>
+            </div>
+            <div>
+                <label for="description">Описание:</label><br>
+                <textarea id="description" name="description" rows="4" required></textarea>
+            </div>
+            <div>
+                <label for="contact">Телефон за връзка:</label><br>
+                <input type="tel" id="contact" name="contact" required>
+            </div>
+            <div>
+                <label for="images">Снимки на имота:</label><br>
+                <input type="file" id="images" name="images" accept="image/*" multiple>
+            </div>
+            <button type="submit" class="button">Публикувай обява</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 EstateBG. All rights reserved.</p>
+    </footer>
+
+    <script src="create.js"></script>
+</body>
+</html>

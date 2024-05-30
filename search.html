@@ -1,0 +1,125 @@
+<!-- search.html -->
+
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Търсене на Имоти - Недвижими Имоти</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style> 
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/bg.jpg'); /* Пътят към фоновото изображение */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+    color: white; /* Бели букви */
+    font-size: 3em; /* Големина на шрифта */
+    text-shadow: 
+        -1px -1px 0 black,  
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black; /* Създаване на граница с text-shadow */
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.png">
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html" class="button">Начало</a></li>
+                <li><a href="search.html" class="button">Търсене</a></li>
+                <li><a href="create.html" class="button">Добавяне на обява</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container my-5">
+        <h1>Търсене на Имоти</h1>
+        <form id="search-form">
+            <div class="mb-3">
+                <label for="city" class="form-label">Град:</label>
+                <select id="city" name="city" class="form-select">
+                    <option value="">Изберете град</option>
+                    <option value="София">София</option>
+                    <option value="Пловдив">Пловдив</option>
+                    <option value="Варна">Варна</option>
+                    <option value="Бургас">Бургас</option>
+                    <option value="Русе">Русе</option>
+                    <option value="Стара Загора">Стара Загора</option>
+                    <!-- Добавете още градове по желание -->
+                </select>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="price-from" class="form-label">Цена от:</label>
+                    <input type="number" id="price-from" name="price-from" class="form-control" placeholder="Минимална цена">
+                </div>
+                <div class="col">
+                    <label for="price-to" class="form-label">Цена до:</label>
+                    <input type="number" id="price-to" name="price-to" class="form-control" placeholder="Максимална цена">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="area-from" class="form-label">Квадратура от:</label>
+                    <input type="number" id="area-from" name="area-from" class="form-control" placeholder="Минимална квадратура">
+                </div>
+                <div class="col">
+                    <label for="area-to" class="form-label">Квадратура до:</label>
+                    <input type="number" id="area-to" name="area-to" class="form-control" placeholder="Максимална квадратура">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Вид на имота:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1-стаен апартамент" id="type-1-bedroom">
+                    <label class="form-check-label" for="type-1-bedroom">1-стаен апартамент</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="2-стаен апартамент" id="type-2-bedroom">
+                    <label class="form-check-label" for="type-2-bedroom">2-стаен апартамент</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="3-стаен апартамент" id="type-3-bedroom">
+                    <label class="form-check-label" for="type-3-bedroom">3-стаен апартамент</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Къща" id="type-house">
+                    <label class="form-check-label" for="type-house">Къща</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Офис" id="type-office">
+                    <label class="form-check-label" for="type-office">Офис</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Търси</button>
+        </form>
+
+        <div id="search-results" class="property-list mt-5">
+            <!-- Search results will be displayed here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 EstateBG. All rights reserved.</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

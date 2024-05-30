@@ -1,0 +1,66 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Недвижими имоти</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/bg.jpg'); /* Пътят към фоновото изображение */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+    color: white; /* Бели букви */
+    font-size: 3em; /* Големина на шрифта */
+    text-shadow: 
+        -1px -1px 0 black,  
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black; /* Създаване на граница с text-shadow */
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Лого" class="img-fluid">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="button">Начало</a></li>
+                <li><a href="search.html" class="button">Търсене</a></li>
+                <li><a href="create.html" class="button">Добавяне на обява</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Обяви</h1>
+        <div id="listings" class="container">
+            <!-- Тук ще се показват обявите -->
+        </div>
+</div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 EstateBG. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
